@@ -157,10 +157,12 @@
 
         #backgroundCanvas {
             position: fixed;
-            top: 0; left: 0;
-            width: 100vw;  height: 100vh;
-            z-index: -1;           /* behind your UI */
-            pointer-events: none;  /* clicks pass through */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* behind your UI */
+            pointer-events: none; /* clicks pass through */
         }
     </style>
 </head>
@@ -299,7 +301,8 @@
 
                 <div class="circle-card">
                     <div class="overlay">
-                        </p>
+                        <p class="quote">"Ko'pchilik yurak-qon tomir kasalliklarini xavf
+                            omillarini oldindan aniqlash va ularga qarshi kurashish orqali oldini olish mumkin."</p>
                         <p class="author">— Professor Salim Yusuf</p>
                     </div>
                 </div>
@@ -380,53 +383,59 @@
 
 <!-- JAVASCRIPT FILES -->
 <script>
-    (function() {
+    (function () {
         const canvas = document.getElementById('backgroundCanvas');
-        const ctx    = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
         let width, height;
+
         function resize() {
-            width  = canvas.width  = window.innerWidth;
+            width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
+
         window.addEventListener('resize', resize);
         resize();
 
         // Mouse position for interactivity (if you want line‑to‑mouse)
-        const mouse = { x: width/2, y: height/2 };
+        const mouse = {x: width / 2, y: height / 2};
         window.addEventListener('mousemove', e => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
         });
 
         // Dot configuration
-        const DOT_COUNT    = 500;
+        const DOT_COUNT = 500;
         const CONNECT_DIST = 60;
-        const MOUSE_DIST   = 120;
+        const MOUSE_DIST = 120;
 
         // Create dot array once
         const dots = [];
+
         class Dot {
             constructor() {
                 this.reset();
             }
+
             reset() {
-                this.x      = Math.random() * width;
-                this.y      = Math.random() * height;
-                this.vx     = (Math.random() - 0.5) * 1;  // speed
-                this.vy     = (Math.random() - 0.5) * 1;
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1;  // speed
+                this.vy = (Math.random() - 0.5) * 1;
                 this.radius = Math.random() * 1.5 + 0.5;
             }
+
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
                 // bounce on edges
-                if (this.x < 0 || this.x > width)  this.vx *= -1;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
+
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
                 ctx.fillStyle = 'rgba(206,206,206,0.8)';
                 ctx.fill();
             }
@@ -446,14 +455,14 @@
 
             // draw lines
             for (let i = 0; i < DOT_COUNT; i++) {
-                for (let j = i+1; j < DOT_COUNT; j++) {
+                for (let j = i + 1; j < DOT_COUNT; j++) {
                     const a = dots[i], b = dots[j];
                     const dx = a.x - b.x, dy = a.y - b.y;
                     const dist = Math.hypot(dx, dy);
                     // only if dots are close *and* near the mouse
                     if (dist < CONNECT_DIST &&
-                        Math.hypot(a.x-mouse.x, a.y-mouse.y) < MOUSE_DIST &&
-                        Math.hypot(b.x-mouse.x, b.y-mouse.y) < MOUSE_DIST) {
+                        Math.hypot(a.x - mouse.x, a.y - mouse.y) < MOUSE_DIST &&
+                        Math.hypot(b.x - mouse.x, b.y - mouse.y) < MOUSE_DIST) {
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
