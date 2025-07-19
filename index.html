@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Medic Care Bootstrap 5 CSS Template</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/owl.theme.default.min.css" rel="stylesheet">
+
+    <link href="css/templatemo-medic-care.css" rel="stylesheet">
+    <!--
+
+    TemplateMo 566 Medic Care
+
+    https://templatemo.com/tm-566-medic-care
+
+    -->
+    <style>
+        .galery {
+            --s: 250px; /* control the size */
+            --g: 20px; /* control the gap */
+            display: grid;
+            margin: calc(var(--s) + var(--g));
+            place-content: center;
+            margin-top: 250px;
+        }
+
+        .galery > img {
+            grid-area: 1/1;
+            width: var(--s);
+            aspect-ratio: 1.15;
+            object-fit: cover;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+            transform: translate(var(--_x, 0), var(--_y, 0)) scale(var(--_t, 1));
+            cursor: pointer;
+            filter: grayscale(80%);
+            transition: .2s linear;
+        }
+
+        .galery > img:hover {
+            filter: grayscale(0);
+            z-index: 1;
+            --_t: 1.2;
+        }
+
+        .galery > img:nth-child(1) {
+            --_y: calc(-100% - var(--g))
+        }
+
+        .galery > img:nth-child(7) {
+            --_y: calc(100% + var(--g))
+        }
+
+        .galery > img:nth-child(3),
+        .galery > img:nth-child(5) {
+            --_x: calc(-75% - .87 * var(--g))
+        }
+
+        .galery > img:nth-child(4),
+        .galery > img:nth-child(6) {
+            --_x: calc(75% + .87 * var(--g))
+        }
+
+        .galery > img:nth-child(3),
+        .galery > img:nth-child(4) {
+            --_y: calc(-50% - .5 * var(--g))
+        }
+
+        .galery > img:nth-child(5),
+        .galery > img:nth-child(6) {
+            --_y: calc(50% + .5 * var(--g))
+        }
+
+
+        .circle-card {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 2rem auto;
+            border-radius: 50%;
+            background-image: url("https://dailynews.mcmaster.ca/wp-content/uploads/sites/3/2012/08/yusuf_salim1.jpg");
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 16px 16px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .circle-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            /* subtle dark overlay for text readability */
+        }
+
+        .circle-card .overlay {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .quote {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.68);
+        }
+
+        .author {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.69);
+        }
+
+        /* Responsive: scale down on small screens */
+        @media (max-width: 480px) {
+            .circle-card {
+                width: 180px;
+                height: 180px;
+            }
+
+            .quote {
+                font-size: 0.9rem;
+            }
+
+            .author {
+                font-size: 0.8rem;
+            }
+        }
+
+        #backgroundCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;  height: 100vh;
+            z-index: -1;           /* behind your UI */
+            pointer-events: none;  /* clicks pass through */
+        }
+    </style>
+</head>
+
+<body id="top">
+<canvas id="backgroundCanvas"></canvas>
+<main>
+
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand mx-auto d-lg-none" href="index.html">
+                Cardio Survey
+                <strong class="d-block">Duk Duk</strong>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#hero">Asosiy sahifa</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Loyixa haqida</a>
+                    </li>
+
+                    <!--                            <li class="nav-item">-->
+                    <!--                                <a class="nav-link" href="#timeline">Timeline</a>-->
+                    <!--                            </li>-->
+
+                    <a class="navbar-brand d-none d-lg-block" href="index.html">
+                        Cardio Survey
+                        <strong class="d-block">Duk Duk</strong>
+                    </a>
+
+                    <!--                            <li class="nav-item">-->
+                    <!--                                <a class="nav-link" href="#reviews">Testimonials</a>-->
+                    <!--                            </li>-->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#riskfactors">Xavf omillari</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Aloqa</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item">
+                                <img src="images/slider/doctor-s-hand-holding-stethoscope-closeup.jpg"
+                                     class="img-fluid" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/slider/img_1.png"
+                                     class="img-fluid" alt="">
+                            </div>
+
+                            <div class="carousel-item">
+                                <img src="images/slider/young-asian-female-dentist-white-coat-posing-clinic-equipment.jpg"
+                                     class="img-fluid" alt="">
+                            </div>
+
+                            <div class="carousel-item active">
+                                <img src="images/slider/president.jpg" class="img-fluid"
+                                     alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/slider/img.png" class="img-fluid"
+                                     alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="heroText d-flex flex-column justify-content-center">
+
+                        <h1 class="mt-auto mb-2">
+                            Yorqin
+                            <div class="animated-info">
+                                <span class="animated-item">salomatlik</span>
+                                <span class="animated-item">kunlar</span>
+                                <span class="animated-item">hayot</span>
+                            </div>
+                        </h1>
+
+                        <p class="mb-4">Yurak-qon tomir kasalliklari dunyo bo'ylab o'lim sabablarining eng yetakchi
+                            omillaridan biridir. Bizning so'rovnomamiz sizning sog'lig'ingiz holatini baholash, xavf
+                            omillarini aniqlash va kerakli choralarni ko'rishingizga yordam berish uchun
+                            mo'ljallangan.</p>
+
+                        <div class="heroLinks d-flex flex-wrap align-items-center">
+                            <a class="custom-link me-4" onclick="location.href='survey.html'"
+                               data-hover="So'rovnomani boshlash">So'rovnomani boshlash</a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="about">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-12">
+                    <h2 class="mb-lg-3 mb-3">InterHeart tadqiqoti</h2>
+
+                    <p>Yurak-qon tomir xavfini erta aniqlash
+                        YusufSalim va boshqalar tomonidan olib borilgan muhim INTERHEART tadqiqotiga asoslanib,
+                        to'qqizta o'zgartirilishi mumkin bo'lgan omil (chekish, lipidlar, gipertoniya, diabet, semirish,
+                        ovqatlanish, jismoniy harakatsizlik, spirtli ichimliklarni iste'mol qilish va psixososyal
+                        stress) bizning dunyo bo'ylab yurak xurujiga olib keladigan birinchi yurak xurujining 90% dan
+                        ortig'ini tashkil qiladi. foydalanuvchilar uchun qulay raqamli so'rov. Asosiy demografik
+                        ma'lumotlarni to'plash, BMIni hisoblash va har bir xavf sohasiga ball qo'yish orqali ushbu
+                        vosita insonning yurak xastaligi darajasi haqida bir zumda o'zbek tilida fikr-mulohazalarni
+                        taqdim etadi - bu hayot tarzini proaktiv o'zgartirish va kasallik boshlanishidan ancha oldin o'z
+                        vaqtida tibbiy maslahat olish imkonini beradi.</p>
+
+                </div>
+
+                <div class="circle-card">
+                    <div class="overlay">
+                        <p class="quote">"Ko'pchilik yurak-qon tomir kasalliklarini o'zgartirilishi mumkin bo'lgan xavf
+                            omillarini aniqlash va ularga qarshi kurashish orqali oldini olish mumkin."
+                        </p>
+                        <p class="author">— Professor Salim Yusuf</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="riskfactors" class="gallery">
+        <div class="galery">
+            <img src="images/gallery/obesity.png" alt="a house on a mountain">
+            <img src="images/gallery/heart.jpg" alt="sime pink flowers">
+            <img src="images/gallery/smoking.png" alt="big rocks with some trees">
+            <img src="images/gallery/alcohol.jpg" alt="a waterfall, a lot of tree and a great view from the sky">
+            <img src="images/gallery/physics.jpg" alt="a cool landscape">
+            <img src="images/gallery/stress.png" alt="inside a town between two big buildings">
+            <img src="images/gallery/diabet.png" alt="a great view of the sea above the mountain">
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer section-padding" id="contact">
+    <section class="container">
+        <div class="row">
+
+            <div class="col-lg-5 me-auto col-12">
+                <h5 class="mb-lg-4 mb-3">Opening Hours</h5>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex">
+                        Sunday : Closed
+                    </li>
+
+                    <li class="list-group-item d-flex">
+                        Monday, Tuesday - Firday
+                        <span>8:00 AM - 3:30 PM</span>
+                    </li>
+
+                    <li class="list-group-item d-flex">
+                        Saturday
+                        <span>10:30 AM - 5:30 PM</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-12 my-4 my-lg-0">
+                <h5 class="mb-lg-4 mb-3">Our Clinic</h5>
+
+                <p><a href="mailto:hello@company.co">hello@company.co</a>
+                <p>
+
+                <p>123 Digital Art Street, San Diego, CA 92123</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 ms-auto">
+                <h5 class="mb-lg-4 mb-3">Socials</h5>
+
+                <ul class="social-icon">
+                    <li><a href="#" class="social-icon-link bi-facebook"></a></li>
+
+                    <li><a href="#" class="social-icon-link bi-twitter"></a></li>
+
+                    <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+
+                    <li><a href="#" class="social-icon-link bi-youtube"></a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-12 ms-auto mt-4 mt-lg-0">
+                <p class="copyright-text">Copyright © Medic Care 2021
+                    <br><br>Design: <a href="https://templatemo.com" target="_parent">TemplateMo</a></p>
+            </div>
+
+        </div>
+    </section>
+</footer>
+
+<!-- JAVASCRIPT FILES -->
+<script>
+    (function() {
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx    = canvas.getContext('2d');
+
+        let width, height;
+        function resize() {
+            width  = canvas.width  = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Mouse position for interactivity (if you want line‑to‑mouse)
+        const mouse = { x: width/2, y: height/2 };
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Dot configuration
+        const DOT_COUNT    = 500;
+        const CONNECT_DIST = 60;
+        const MOUSE_DIST   = 120;
+
+        // Create dot array once
+        const dots = [];
+        class Dot {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x      = Math.random() * width;
+                this.y      = Math.random() * height;
+                this.vx     = (Math.random() - 0.5) * 1;  // speed
+                this.vy     = (Math.random() - 0.5) * 1;
+                this.radius = Math.random() * 1.5 + 0.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                // bounce on edges
+                if (this.x < 0 || this.x > width)  this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+                ctx.fillStyle = 'rgba(206,206,206,0.8)';
+                ctx.fill();
+            }
+        }
+
+        // fill the array
+        for (let i = 0; i < DOT_COUNT; i++) {
+            dots.push(new Dot());
+        }
+
+        // Main animation loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // draw dots
+            dots.forEach(dot => dot.draw());
+
+            // draw lines
+            for (let i = 0; i < DOT_COUNT; i++) {
+                for (let j = i+1; j < DOT_COUNT; j++) {
+                    const a = dots[i], b = dots[j];
+                    const dx = a.x - b.x, dy = a.y - b.y;
+                    const dist = Math.hypot(dx, dy);
+                    // only if dots are close *and* near the mouse
+                    if (dist < CONNECT_DIST &&
+                        Math.hypot(a.x-mouse.x, a.y-mouse.y) < MOUSE_DIST &&
+                        Math.hypot(b.x-mouse.x, b.y-mouse.y) < MOUSE_DIST) {
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = 'rgba(206,206,206,0.2)';
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // update dot positions
+            dots.forEach(dot => dot.update());
+
+            requestAnimationFrame(animate);
+        }
+
+        // kick it off
+        animate();
+    })();
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/scrollspy.min.js"></script>
+<script src="js/custom.js"></script>
+<!--
+
+TemplateMo 566 Medic Care
+
+https://templatemo.com/tm-566-medic-care
+
+-->
+</body>
+</html>
